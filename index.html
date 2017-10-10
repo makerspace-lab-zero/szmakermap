@@ -6,18 +6,60 @@
   <style type="text/css">
     body, html,#map {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
   </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=r9U9wyyvxi6tLfKmQsmpLYS2syCxAzi2"></script>
   <title>Shenzhen Makers Map</title>
 </head>
 <body>
-  <div id="main" style="width: 600px;height:400px;"></div>
+  <div id="map" style="width: 100vw; height:100vh;"></div>
 <script type="text/javascript">
+
+  var locale = 'en';
+
+  // init map
+  var map = new BMap.Map("map");
+  map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
+  map.addControl(new BMap.MapTypeControl());
+  map.setCurrentCity("深圳");
+  map.enableScrollWheelZoom(true);
 
   // load data
   loadJSON("list.json", function(response) {
     var data = JSON.parse(response);
     console.log('data loaded');
     console.log(data);
-  });
+
+    // add points to the map
+    var markers = data.forEach(f => {
+        if (f.geometry === 'Point') return // add only Points
+
+        // create marker/point
+        var point = new BMap.Point(f.geometry.coordinates[1], f.geometry.coordinates[0])
+        var marker = new BMap.Marker(point)
+        map.addOverlay(marker)
+
+        // add metadata
+
+        // default to chinese address
+        var address = f.properties[locale].address || f.properties['zh'].address
+
+        var opts = {
+          width : 400,
+          height: 200
+        }
+
+        var content = `<h3>${f.properties[locale].name}</h3>`
+        content += `<p>${f.properties[locale].description}</p>`
+        content += `<p>${address}</p>`
+
+        var infoWindow = new BMap.InfoWindow(content, opts);
+
+        marker.addEventListener("click", function(){
+          map.openInfoWindow(infoWindow, point); //开启信息窗口
+        });
+
+    })
+
+  })
 
 
   /**
@@ -37,6 +79,8 @@
      };
      xobj.send(null);
   }
+
+
 
 </script>
 </body>
