@@ -21,6 +21,7 @@
   map.addControl(new BMap.MapTypeControl());
   map.setCurrentCity("深圳");
   map.enableScrollWheelZoom(true);
+  map.setMapStyle({style:'darkgreen'});
 
   // load data
   loadJSON("list.json", function(response) {
