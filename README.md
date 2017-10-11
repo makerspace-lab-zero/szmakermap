@@ -16,29 +16,31 @@ The diference is:
 
 ## GeoJSON
 ```
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [0.0, 0.0]
-  },
-  "properties": {
-    "category": "makerspaces",
-    "opening_hours": null,
-    "url": "https://lab0x0.com",
-    "contacts": "Alex, 0xff@lab0x0.com, wechat: targence",    
-    "en": {
-      "name": "LAB ZERO",
-      "description": "LAB ZERO is non-profit makers community and a genuine makerspace in Shenzhen",
-      "address": null   
+[
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [22.547977,113.947256]
     },
-    "zh": {
-      "name": "零空间",
-      "description": null,
-      "address": "深圳南山区南头街道麻雀岭工业区m10栋4号楼一楼 零空间 (LAB ZERO)"
+    "properties": {
+      "category": "makerspaces",
+      "opening_hours": null,
+      "url": "https://lab0x0.com",
+      "contacts": "Alex, 0xff@lab0x0.com, wechat: targence",
+      "en": {
+        "name": "LAB ZERO",
+        "description": "LAB ZERO is non-profit makers community and a genuine western style makerspace in Shenzhen",
+        "address": null
+      },
+      "zh": {
+        "name": "零空间",
+        "description": null,
+        "address": "深圳南山区南头街道麻雀岭工业区m10栋4号楼一楼 零空间 (LAB ZERO)"
+      }
     }
   }
-}
+]
 ```
 
 ### Coordinates format
