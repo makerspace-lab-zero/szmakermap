@@ -72,7 +72,7 @@ http://api.map.baidu.com/lbsapi/getpoint/index.html
 ## How to participate?
 
 Add Alex in WeChat, he add you into working group, introduce you to other people and give task.
-![photo_2017-09-28_14-42-12](https://user-images.githubusercontent.com/415928/30965128-e5d6c5a2-a45c-11e7-87f4-dcbebb5da7f8.jpg)
+![qr](https://user-images.githubusercontent.com/415928/31456426-673cb3da-aec2-11e7-9a73-7221158ab7c1.jpg)
 
 If you are interesting to see some working process please check these links:
 - https://github.com/lab0x0/szmakermap/issues
