@@ -14,6 +14,54 @@ The diference is:
   - WeChat mini app (小程序)
   - A big printed A1 poster verson for makerspaces
 
+## GeoJSON
+```
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [0.0, 0.0]
+  },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "https://lab0x0.com",
+    "contacts": "Alex, 0xff@lab0x0.com, wechat: targence",    
+    "en": {
+      "name": "LAB ZERO",
+      "description": "LAB ZERO is non-profit makers community and a genuine makerspace in Shenzhen",
+      "address": null   
+    },
+    "zh": {
+      "name": "零空间",
+      "description": null,
+      "address": "深圳南山区南头街道麻雀岭工业区m10栋4号楼一楼 零空间 (LAB ZERO)"
+    }
+  }
+}
+```
+
+### Coordinates format
+```
+"coordinates": [longitude, latitude]
+```
+
+### Polygons support
+```
+{
+  "type": "Polygon",
+  "coordinates": [
+    [
+      [-104.05, 48.99],
+      [-97.22, 48.98],
+      [-96.58, 45.94],
+      [-104.03, 45.94],
+      [-104.05, 48.99]
+    ]
+  ]
+}
+```
+
 
 ## How to participate?
 
