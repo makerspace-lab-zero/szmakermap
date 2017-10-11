@@ -3,7 +3,7 @@
     "type": "Feature",
     "geometry": {
       "type": "Point",
-      "coordinates": [22.5423999,113.9369523]
+      "coordinates": [22.547977,113.947256]
     },
     "properties": {
       "category": "makerspaces",
@@ -12,7 +12,7 @@
       "contacts": "Alex, 0xff@lab0x0.com, wechat: targence",
       "en": {
         "name": "LAB ZERO",
-        "description": "LAB ZERO is non-profit makers community and a genuine makerspace in Shenzhen",
+        "description": "LAB ZERO is non-profit makers community and a genuine western style makerspace in Shenzhen",
         "address": null
       },
       "zh": {
