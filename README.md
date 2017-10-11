@@ -1,7 +1,7 @@
 # Shenzhen Maker Map
 https://lab0x0.github.io/szmakermap/
 
-## What is this
+## What is this?
 
 We are making Shenzhen Maker Map.  
 The idea is very similar to Shenzhen Map for Makers by Seeed Studio ([pdf](http://www.seeedstudio.com/document/pdf/Shenzhen%20Map%20for%20Makers.pdf))
