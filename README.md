@@ -46,6 +46,10 @@ The diference is:
 "coordinates": [longitude, latitude]
 ```
 
+### How to get coordinates for a new place
+http://api.map.baidu.com/lbsapi/getpoint/index.html
+
+
 ### Polygons support
 ```
 {
