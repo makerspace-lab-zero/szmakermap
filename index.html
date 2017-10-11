@@ -20,8 +20,10 @@
   map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
   map.addControl(new BMap.MapTypeControl());
   map.setCurrentCity("深圳");
+  map.enablePinchToZoom(true);
+  map.enableKeyboard(true);
+  map.enableDoubleClickZoom(true);
   map.enableScrollWheelZoom(true);
-  map.setMapStyle({style:'darkgreen'});
 
   // load data
   loadJSON("list.json", function(response) {
