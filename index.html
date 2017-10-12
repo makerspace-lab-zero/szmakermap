@@ -36,7 +36,7 @@
         if (f.geometry === 'Point') return // add only Points
 
         // create marker/point
-        var point = new BMap.Point(f.geometry.coordinates[1], f.geometry.coordinates[0])
+        var point = new BMap.Point(f.geometry.coordinates[0], f.geometry.coordinates[1])
         var marker = new BMap.Marker(point)
         map.addOverlay(marker)
 
