@@ -19,6 +19,13 @@
   var map = new BMap.Map("map");
   map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
   map.addControl(new BMap.MapTypeControl());
+
+  // map.addControl(new BMap.OverviewMapControl());
+  var navCtrl = new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM});
+  navCtrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
+  navCtrl.setOffset(new BMap.Size(20, 50));
+  map.addControl(navCtrl);
+
   map.setCurrentCity("深圳");
   map.enablePinchToZoom(true);
   map.enableKeyboard(true);
