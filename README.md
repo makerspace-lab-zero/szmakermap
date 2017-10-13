@@ -71,7 +71,7 @@ http://api.map.baidu.com/lbsapi/getpoint/index.html
 
 ## How to participate?
 
-Add Alex in WeChat, he add you into working group, introduce you to other people and give task.
+Add Alex in WeChat, he add you into working group, introduce you to other people and give task.   
 ![qr](https://user-images.githubusercontent.com/415928/31456426-673cb3da-aec2-11e7-9a73-7221158ab7c1.jpg)
 
 If you are interesting to see some working process please check these links:
