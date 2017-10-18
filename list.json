@@ -21,5 +21,33 @@
         "address": "深圳南山区南头街道麻雀岭工业区m10栋4号楼一楼 零空间 (LAB ZERO)"
       }
     }
+  },
+   {
+    "type": "Feature",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [
+        [114.094721,22.551346],
+        [114.09561,22.551342],
+        [114.095624,22.550524],
+        [114.094721,22.550507]
+      ]
+    },
+    "properties": {
+      "category": "electronic market",
+      "opening_hours": null,
+      "url": "",
+      "contacts": null,
+      "en": {
+        "name": "Mintong Digital City",
+        "description": "Mythical home of the shanzhai phones in Huaqiangbei",
+        "address": null
+      },
+      "zh": {
+        "name": "明通数码城",
+        "description": "华强北卖山寨手机的名点",
+        "address": "广东省深圳市福田区华强北华发北路明通数码城东"
+      }
+    }
   }
 ]

@@ -40,35 +40,53 @@
 
     // add points to the map
     var markers = data.forEach(f => {
-        if (f.geometry === 'Point') return // add only Points
 
-        // create marker/point
+      // default to chinese address
+      var address = f.properties[locale].address || f.properties['zh'].address
+
+      var opts = {
+        width : 400,
+        height: 200
+      }
+
+      var content = `<h3>${f.properties[locale].name}</h3>`
+      content += `<p>${f.properties[locale].description}</p>`
+      content += `<p>${address}</p>`
+
+      var infoWindow = new BMap.InfoWindow(content, opts);
+
+
+      if (f.geometry.type === 'Point') {
+
         var point = new BMap.Point(f.geometry.coordinates[0], f.geometry.coordinates[1])
-        var marker = new BMap.Marker(point)
-        map.addOverlay(marker)
 
-        // add metadata
+      } else if (f.geometry.type === 'Polygon') {
+        console.log('draw polygon');
 
-        // default to chinese address
-        var address = f.properties[locale].address || f.properties['zh'].address
+        // add point for visibility
+        var points = f.geometry.coordinates.map(c => new BMap.Point(c[0], c[1]) )
+        var point = points[0]
 
-        var opts = {
-          width : 400,
-          height: 200
-        }
+        // create polygon
+        var polygon = new BMap.Polygon(points)
+        map.addOverlay(polygon)
 
-        var content = `<h3>${f.properties[locale].name}</h3>`
-        content += `<p>${f.properties[locale].description}</p>`
-        content += `<p>${address}</p>`
+      } else {
+        return // prevent adding unknown geometries
+      }
 
-        var infoWindow = new BMap.InfoWindow(content, opts);
+      // create and show marker on the map
+      var marker = new BMap.Marker(point)
+      map.addOverlay(marker)
 
-        marker.addEventListener("click", function(){
-          map.openInfoWindow(infoWindow, point); //开启信息窗口
-        });
+      marker.addEventListener("click", function(){
+        map.openInfoWindow(infoWindow, point); //开启信息窗口
+      });
+
+
+
 
     })
-
   })
 
 
