@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <style media="screen">
+    .helper {
+      color : #979797;
+    }
+
+    h1, h2, h5 {
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2em
+    }
+
+    section.map {
+      margin-bottom: 1em;
+    }
+    section.map p {
+      margin-bottom: 0;
+    }
+
+  </style>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=r9U9wyyvxi6tLfKmQsmpLYS2syCxAzi2"></script>
+  <title>Shenzhen Makers Map - Add</title>
+</head>
+<body>
+  <div class="container  ">
+
+    <h1>Put this to the map</h1>
+    <form>
+
+      <section class="row map">
+        <h5>Pick a place</h5>
+        <p class="helper">Click on the map to select</p>
+        <div id="map" style="width: 100%; height:500px;"></div>
+        <div class="row">
+          <p class="helper">
+            <small>
+              Coordinates : <span id="latitude"></span>, <span id="longitude"></span>
+            </small>
+          </p>
+          <input class="u-full-width" type="hidden" placeholder="latitude" id="latitudeInput" name="lat">
+          <input class="u-full-width" type="hidden" placeholder="longitude" id="longitudeInput" name="lng">
+        </div>
+      </section>
+
+      <div class="row">
+        <div class="six columns">
+          <label for="categoriesInput">Categories</label>
+          <select class="u-full-width" id="categoriesInput" name="category">
+            <option value="makerspace">Makerspace</option>
+            <option value="Option 2">Electronic Market</option>
+            <option value="Option 3">Fab Lab</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="urlInput">URL</label>
+        <input class="u-full-width" type="url" placeholder="http://space.com" id="urlInput" name="url">
+
+        <!-- <label for="wechatInput">WeChat Id</label>
+        <input class="u-full-width" type="text" placeholder="My wechat ID" id="wechatInput" required> -->
+      </div>
+
+      <hr />
+
+      <h2>Name / Description</h2>
+      <div class="row">
+
+        <div class="six columns">
+          <label for="nameEnInput">Name of the Space</label>
+          <input class="u-full-width" type="text" placeholder="My Space" id="nameEnInput" name="enName">
+          <label for="descriptionEnInput">Description</label>
+          <textarea class="u-full-width" placeholder="About…" id="descriptionEnInput" name="enDescription"></textarea>
+          <label for="addressEnInput">Adress of the Space</label>
+          <input class="u-full-width" type="text" placeholder="My adress" id="addressEnInput" name="enAddress">
+        </div>
+
+        <div class="six columns">
+          <label for="nameZhInput">地名</label>
+          <input class="u-full-width" type="text" placeholder="我的地名" id="nameZhInput" name="zhName">
+          <label for="descriptionZhInput">地方介绍</label>
+          <textarea class="u-full-width" placeholder="关于…" id="descriptionZhInput" name="zhDescription"></textarea>
+          <label for="addressZhInput">具体地址</label>
+          <input class="u-full-width" type="text" name="zhAddress" placeholder="我的地址" id="addressZhInput">
+        </div>
+      </div>
+
+      <hr />
+      <h5>Contact</h5>
+      <div class="row">
+        <label for="nameInput">Name of the Person</label>
+        <input class="u-full-width" type="text" name="contactName" placeholder="老王 John Doe" id="nameInput" required>
+      </div>
+      <div class="row">
+        <div class="six columns">
+          <label for="contactEmail">Contact Email</label>
+          <input class="u-full-width" type="text" name="contactEmail" placeholder="contact@email.com" id="contactEmail">
+        </div>
+        <div class="six columns">
+          <label for="wechatInput">WeChat Id</label>
+          <input class="u-full-width" type="text" name="contactWechat" placeholder="My wechat ID" id="wechatInput">
+        </div>
+      </div>
+
+      <hr />
+      <div class="row">
+        <label for="emailInput">Your email</label>
+        <input class="u-full-width" name="email" type="email" placeholder="test@mailbox.com" id="emailInput" required>
+      </div>
+      <label for="messageInput">Message</label>
+      <textarea class="u-full-width" name="message" placeholder="你好/Hi guys…" id="messageInput"></textarea>
+      <p class="helper">
+        All info here are just for internal use and won't be publicize online.
+      </p>
+      <label class="send-yourself-copy">
+        <input type="checkbox">
+        <span class="label-body">Send a copy to yourself</span>
+      </label>
+      <input class="button-primary" type="submit" value="Submit">
+    </form>
+
+  </div>
+  <script type="text/javascript">
+
+    // default values
+    var coords = [113.947256,22.547977]
+
+    var map = new BMap.Map("map");
+
+    function initMap() {
+      // init map
+
+      map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
+      map.addControl(new BMap.MapTypeControl());
+
+      // map.addControl(new BMap.OverviewMapControl());
+      var navCtrl = new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM});
+      navCtrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
+      navCtrl.setOffset(new BMap.Size(20, 50));
+      map.addControl(navCtrl);
+
+      map.setCurrentCity("深圳");
+      map.enablePinchToZoom(true);
+      map.enableKeyboard(true);
+      map.enableDoubleClickZoom(true);
+      map.enableScrollWheelZoom(true);
+
+
+      showPoint(coords[0], coords[1])
+      map.addEventListener("click", selectPointOnMap);
+    }
+
+    function showPoint(lng, lat) {
+
+      document.getElementById("latitude").innerHTML = lng
+      document.getElementById("longitude").innerHTML = lat
+
+      // show point
+      map.clearOverlays()
+      var point = new BMap.Point(lng, lat)
+      var marker = new BMap.Marker(point)
+      map.addOverlay(marker)
+
+    }
+
+    function selectPointOnMap(e){
+      showPoint(e.point.lng, e.point.lat)
+    }
+
+    function toJSONString( formData ) {
+      console.log(formData);
+      result = {};
+      for (var entry of formData.entries()) {
+        result[entry[0]] = entry[1];
+      }
+
+      // parse properly
+      var json = {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [result.lat,result.lng]
+        },
+        "properties": {
+        "category": result.category,
+        "opening_hours": null,
+        "url": result.url,
+        "contact": `${result.contactName}, ${result.contactEmail}, wechat:${result.contactWechat}`,
+        "en": {
+          "name": result.enName,
+          "description": result.enDescription,
+          "address": result.enAddress
+        },
+        "zh": {
+          "name": result.zhName,
+          "description": result.zhDescription,
+          "address": result.zhAddress
+          }
+        }
+      }
+
+      console.log(json);
+      return JSON.stringify( json );
+    }
+
+    // send JSON data on form 'submit' click
+    var form = document.querySelector('form')
+    form.addEventListener("submit", function(e) {
+      e.preventDefault()
+      var formData = new FormData(form)
+
+      var json = toJSONString(formData)
+
+      // send XHR here...
+    });
+
+    //
+    initMap()
+
+
+  </script>
+
+</body>
