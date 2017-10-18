@@ -49,5 +49,99 @@
         "address": "广东省深圳市福田区华强北华发北路明通数码城东"
       }
     }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [114.06412,22.512199]
+    },
+    "properties": {
+      "category": "makerspaces",
+      "opening_hours": null,
+      "url": "https://www.szoil.org/",
+      "contacts": "Vicky Xie, vicky.xie@szoil.org, wechat: huiqi-xie",
+      "en": {
+        "name": "Shenzhen Open Innovation Lab",
+        "description": "Shenzhen Open Innovation Lab (SZOIL), established by SIDA and Maker Collider,is a space and platform for worldwide makers to communicate and cooperate. SZOIL is also the first Fab Lab in Shenzhen authorized by MIT CBA as a research and development partner of FabLab 2.0.",
+        "address": null
+      },
+      "zh": {
+        "name": "深圳开放创新实验室",
+        "description": null,
+        "address": "广东省深圳市福田区福田保税区福年广场531室"
+      }
+    }
+  },
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [113.948042,22.580923]
+    },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "https://www.xfactory.io",
+    "contacts": "Violet, wechat: violet219318",
+    "en": {
+      "name": "X.facotry",
+      "description": "x.factory is operated by Chaihuo Maker Space, Shenzhen’s first and leading maker space since 2011, and partnered with Seeed Studio, an open source hardware company that has been serving the global maker community since 2008.",
+      "address": null
+      },
+    "zh": {
+      "name": "柴火造物中心",
+      "description": null,
+      "address": "广东省深圳市南山区打石二路万科云设计公社"
+      }
+    }
+  },
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [114.092665,22.549636]
+    },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "https://troublemaker.site",
+    "contacts": "Henk, wechat: protopro",
+    "en": {
+      "name": "Trouble Maker",
+      "description": "As fellow makers we started Trouble Maker to help others overcome design, prototyping and manufacturing challenges faster.",
+      "address": null
+      },
+    "zh": {
+      "name": "Trouble Maker",
+      "description": null,
+      "address": "福田区华强北路1013号华强北国际创客中心"
+      }
+    }
+  },
+
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [113.999126,22.546195]
+    },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "http://www.chaihuo.org",
+    "contacts": "Violet, wechat: violet219318",
+    "en": {
+      "name": "Chaihuo Maker Space",
+      "description": "Chaihuo Maker Space is the first maker space in Shenzhen, and the second in China. Its name comes from the Chinese saying The fire burns high when everybody adds wood to it. Chaihuo provides an open and collaborative environment for makers and encourages cross-field communication. ",
+      "address": null
+      },
+    "zh": {
+      "name": "柴火创客空间",
+      "description": null,
+      "address": "深圳市南山区华侨城创意园北区A5栋227室"
+      }
+    }
   }
+
 ]

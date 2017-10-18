@@ -19,6 +19,8 @@
   var map = new BMap.Map("map");
   map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
   map.addControl(new BMap.MapTypeControl());
+  map.addControl(new BMap.GeolocationControl());
+  map.addControl(new BMap.ScaleControl());
 
   // map.addControl(new BMap.OverviewMapControl());
   var navCtrl = new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM});
