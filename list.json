@@ -142,6 +142,59 @@
       "address": "深圳市南山区华侨城创意园北区A5栋227室"
       }
     }
-  }
+  },
 
+
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [113.949039,22.548548]
+    },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "http://szdiy.org",
+    "contacts": "Terry, szdiyadm@gmail.com, wechat: terrytete",
+    "en": {
+      "name": "SZDIY",
+      "description": "SZDIY is a free software/hardware community base in Shenzhen, with people of a wide range of professions. We have online/offline meet-ups to discuss, tinker and make cool things.
+
+",
+      "address": null
+      },
+    "zh": {
+      "name": "SZDIY",
+      "description": "深圳DIY社区(SZDIY)是一个自由软硬件社区，最初由来自SZLUG（Shenzhen Linux User Group）的Linux爱好者于2009年创立。社区线上采用邮件列表和IRC交流想法，线下定期举办聚会来分享各自领域的知识、交流想法、协作推进项目。",
+      "address": "深圳南山区科苑西小区33栋516室"
+      }
+    }
+  },  
+
+
+  {
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": []
+    },
+  "properties": {
+    "category": "makerspaces",
+    "opening_hours": null,
+    "url": "http://www.segmaker.com",
+    "contacts": "Jay, yangj@segsy.com.cn, wechat: youngjay",
+    "en": {
+      "name": "SEGMaker",
+      "description": "",
+      "address": null
+      },
+    "zh": {
+      "name": "SEGMaker",
+      "description": ",
+      "address": "深圳市福田区赛格创客中心"
+      }
+    }
+  }    
+  
+  
 ]
