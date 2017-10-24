@@ -40,13 +40,11 @@
         <p class="helper">Click on the map to select</p>
         <div id="map" style="width: 100%; height:500px;"></div>
         <div class="row">
-          <p class="helper">
-            <small>
-              Coordinates : <span id="latitude"></span>, <span id="longitude"></span>
-            </small>
-          </p>
-          <input class="u-full-width" type="hidden" placeholder="latitude" id="latitudeInput" name="lat">
-          <input class="u-full-width" type="hidden" placeholder="longitude" id="longitudeInput" name="lng">
+          <label>
+            Coordinates
+          </label>
+          <input class="u-full-width" type="number" placeholder="latitude" id="latitudeInput" name="lat">
+          <input class="u-full-width" type="number" placeholder="longitude" id="longitudeInput" name="lng">
         </div>
       </section>
 
@@ -131,7 +129,7 @@
   <script type="text/javascript">
 
     // default values
-    var coords = [113.947256,22.547977]
+    var coords = []
 
     var map = new BMap.Map("map");
 
@@ -160,8 +158,8 @@
 
     function showPoint(lng, lat) {
 
-      document.getElementById("latitude").innerHTML = lng
-      document.getElementById("longitude").innerHTML = lat
+      document.getElementById("latitudeInput").value = lng
+      document.getElementById("longitudeInput").value = lat
 
       // show point
       map.clearOverlays()
