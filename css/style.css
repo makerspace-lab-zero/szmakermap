@@ -3,13 +3,18 @@ body, html, #map {
   height: 100%;
   overflow: hidden;
   margin:0;
-  font-size: 14pt;
+  font-size: 12pt;
   font-family:Arial, "微软雅黑", sans;
 }
 
 h1 {
   font-size: 2rem;
   margin-bottom: 1em;
+}
+
+.helper {
+  font-size: .8em;
+  color : #979797;
 }
 
 #menu {
@@ -28,6 +33,10 @@ h1 {
 #places-list li {
   padding: .6em 0;
   border-bottom: 1px solid #ccc;
+}
+
+#menu #credits {
+  margin: 2em 0;
 }
 
 .toggle-button {
