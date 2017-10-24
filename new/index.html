@@ -163,8 +163,8 @@
 
     function showPoint(lng, lat) {
 
-      document.getElementById("latitudeInput").value = lng
-      document.getElementById("longitudeInput").value = lat
+      document.getElementById("latitudeInput").value = lat
+      document.getElementById("longitudeInput").value = lng
 
       // show point
       map.clearOverlays()
@@ -224,6 +224,15 @@
 
       // send XHR here...
     });
+
+    // move point on map when lat/lng is manually updated
+    function handleUpdateLatLngInput() {
+      var lat = document.getElementById("latitudeInput").value
+      var lng = document.getElementById("longitudeInput").value
+      showPoint(lng, lat)
+    }
+    document.getElementById("latitudeInput").addEventListener('change', handleUpdateLatLngInput)
+    document.getElementById("longitudeInput").addEventListener('change', handleUpdateLatLngInput)
 
     //
     initMap()
