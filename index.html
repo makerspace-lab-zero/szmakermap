@@ -3,98 +3,182 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <style type="text/css">
-    body, html,#map {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
-  </style>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=r9U9wyyvxi6tLfKmQsmpLYS2syCxAzi2"></script>
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/style.css">
   <title>Shenzhen Makers Map</title>
 </head>
 <body>
-  <div id="map" style="width: 100vw; height:100vh;"></div>
+  <nav id="menu">
+    <header>
+      <h1>Shenzhen Maker Map</h1>
+      <input
+        id="search-places"
+        type="search"
+        name="searchPlacesInput"
+        value=""
+        placeholder="Lookup a place"
+        >
+      <ul id="places-list">
+      </ul>
+    </header>
+  </nav>
+  <main id="panel">
+    <button class="toggle-button">☰</button>
+    <div id="map" style="width: 100vw; height:100vh;"></div>
+  </main>
+
+<script src="/js/slideout.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=r9U9wyyvxi6tLfKmQsmpLYS2syCxAzi2"></script>
+
 <script type="text/javascript">
 
+  // globals
   var locale = 'en';
-
-  // init map
   var map = new BMap.Map("map");
-  map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
-  map.addControl(new BMap.MapTypeControl());
-  map.addControl(new BMap.GeolocationControl());
-  map.addControl(new BMap.ScaleControl());
+  var data = null;
 
-  // map.addControl(new BMap.OverviewMapControl());
-  var navCtrl = new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM});
-  navCtrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
-  navCtrl.setOffset(new BMap.Size(20, 50));
-  map.addControl(navCtrl);
+  // menu
+  var slideout = new Slideout({
+    'panel': document.getElementById('panel'),
+    'menu': document.getElementById('menu'),
+    'padding': 256,
+    'tolerance': 70
+  });
 
-  map.setCurrentCity("深圳");
-  map.enablePinchToZoom(true);
-  map.enableKeyboard(true);
-  map.enableDoubleClickZoom(true);
-  map.enableScrollWheelZoom(true);
+  // default state
+  slideout.open();
+
+  // Toggle button
+  document.querySelector('.toggle-button').addEventListener('click', function() {
+    slideout.toggle();
+  });
+
+  // MENU
+  var placesList = document.getElementById("places-list")
+
+  // search input
+  var searchPlacesInput = document.getElementById("search-places")
+  var searchPlacesInputStr = '' // default
+
+  searchPlacesInput.addEventListener('keyup', function(e) {
+    searchPlacesInputStr = document.getElementById("search-places").value
+    updateMap()
+  })
+
+  /*
+    * @param props properties from GeoJSON
+    * @param locale 2-letter string for language (zh/en)
+    * @returns a BMap.InfoWindow object
+    */
+  function getInfoWindow(props) {
+    // default to chinese address
+    var address = props[locale].address || props['zh'].address
+
+    var opts = {
+      width : 400,
+      height: 200
+    }
+
+    var content = `<h3>${props[locale].name}</h3>`
+    content += `<p>${props[locale].description}</p>`
+    content += `<p>${address}</p>`
+
+    return new BMap.InfoWindow(content, opts);
+  }
+
+  function addToMainList(props) {
+    // add to the list
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(props[locale].name));
+    placesList.appendChild(li);
+  }
+
+  function getGeometry(geometry) {
+
+    if (geometry.type === 'Point') {
+
+      var point = new BMap.Point(
+        geometry.coordinates[0],
+        geometry.coordinates[1]
+      )
+      return new BMap.Marker(point)
+
+    }
+    else if (geometry.type === 'Polygon') {
+
+      var polygonOptions = {
+        strokeColor : '#00C96F',
+        fillColor : '#00C96F',
+        fillOpacity : .6
+      }
+
+      var points = geometry.coordinates
+        .map(c => new BMap.Point(c[0], c[1]) )
+
+      return new BMap.Polygon(points, polygonOptions)
+    }
+  }
+
+  function initMap() {
+
+    map.centerAndZoom(new BMap.Point(113.93,22.54), 13);
+    map.addControl(new BMap.MapTypeControl());
+    map.addControl(new BMap.GeolocationControl());
+    map.addControl(new BMap.ScaleControl());
+
+    // map.addControl(new BMap.OverviewMapControl());
+    var navCtrl = new BMap.NavigationControl({type: BMAP_NAVIGATION_CONTROL_ZOOM});
+    navCtrl.setAnchor(BMAP_ANCHOR_TOP_RIGHT);
+    navCtrl.setOffset(new BMap.Size(20, 50));
+    map.addControl(navCtrl);
+
+    map.setCurrentCity("深圳");
+    map.enablePinchToZoom(true);
+    map.enableKeyboard(true);
+    map.enableDoubleClickZoom(true);
+    map.enableScrollWheelZoom(true);
+
+  }
+
+  function updateMap() {
+    // clean
+    map.clearOverlays()
+    placesList.innerHTML = ''
+
+    // add points
+    data
+      .filter(f => filter(f))
+      .forEach(f => {
+        // create and show elements on the map
+        var geometry = getGeometry(f.geometry)
+        map.addOverlay(geometry)
+
+        // add infobox
+        var infoWindowText = getInfoWindow(f.properties)
+        geometry.addEventListener("click", function(e){
+          map.openInfoWindow(infoWindowText, e.currentTarget.getPosition());
+        });
+
+        // parse list
+        addToMainList(f.properties)
+      })
+  }
+
+  function filter(d) {
+    var name = d.properties['en'].name.toLowerCase()
+    var filterSearch = !!name.indexOf(searchPlacesInputStr.toLowerCase())
+    return searchPlacesInputStr !=='' ? !filterSearch : true
+  }
+
+  // load map
+  initMap()
 
   // load data
   loadJSON("list.json", function(response) {
-    var data = JSON.parse(response);
-    console.log('data loaded');
-    console.log(data);
-
-    // add points to the map
-    var markers = data.forEach(f => {
-
-      // default to chinese address
-      var address = f.properties[locale].address || f.properties['zh'].address
-
-      var opts = {
-        width : 400,
-        height: 200
-      }
-
-      var content = `<h3>${f.properties[locale].name}</h3>`
-      content += `<p>${f.properties[locale].description}</p>`
-      content += `<p>${address}</p>`
-
-      var infoWindow = new BMap.InfoWindow(content, opts);
-
-
-      if (f.geometry.type === 'Point') {
-
-        var point = new BMap.Point(f.geometry.coordinates[0], f.geometry.coordinates[1])
-
-        // create and show marker on the map
-        var marker = new BMap.Marker(point)
-        map.addOverlay(marker)
-
-      } else if (f.geometry.type === 'Polygon') {
-        console.log('draw polygon');
-
-        // add point for visibility
-        var points = f.geometry.coordinates.map(c => new BMap.Point(c[0], c[1]) )
-        var point = points[0]
-
-        // create polygon
-        var polygonOptions = {
-          strokeColor : '#00C96F',
-          fillColor : '#00C96F',
-          fillOpacity : .6
-        }
-        var marker = new BMap.Polygon(points, polygonOptions)
-        map.addOverlay(marker)
-
-      } else {
-        return // prevent adding unknown geometries
-      }
-
-      marker.addEventListener("click", function(){
-        map.openInfoWindow(infoWindow, point); //开启信息窗口
-      });
-
-
-
-
-    })
+    data = JSON.parse(response);
+    updateMap()
   })
+
 
 
   /**
