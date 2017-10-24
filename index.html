@@ -62,6 +62,10 @@
 
         var point = new BMap.Point(f.geometry.coordinates[0], f.geometry.coordinates[1])
 
+        // create and show marker on the map
+        var marker = new BMap.Marker(point)
+        map.addOverlay(marker)
+
       } else if (f.geometry.type === 'Polygon') {
         console.log('draw polygon');
 
@@ -70,16 +74,17 @@
         var point = points[0]
 
         // create polygon
-        var polygon = new BMap.Polygon(points)
-        map.addOverlay(polygon)
+        var polygonOptions = {
+          strokeColor : '#00C96F',
+          fillColor : '#00C96F',
+          fillOpacity : .6
+        }
+        var marker = new BMap.Polygon(points, polygonOptions)
+        map.addOverlay(marker)
 
       } else {
         return // prevent adding unknown geometries
       }
-
-      // create and show marker on the map
-      var marker = new BMap.Marker(point)
-      map.addOverlay(marker)
 
       marker.addEventListener("click", function(){
         map.openInfoWindow(infoWindow, point); //开启信息窗口
