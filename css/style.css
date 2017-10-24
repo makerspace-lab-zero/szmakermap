@@ -20,6 +20,16 @@ h1 {
 #menu {
   padding : 1em;
 }
+#menu .add-new {
+  padding : 1em;
+  background: steelblue;
+  border: none;
+  margin-bottom: 1em;
+}
+#menu .add-new a {
+  text-decoration: none;
+  color: white;
+}
 
 #menu input {
   margin-bottom: 2em;
