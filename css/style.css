@@ -56,6 +56,17 @@ h1 {
   border-bottom: 1px solid #ccc;
 }
 
+#places-list li a {
+  text-decoration: none;
+  color: #666666;
+}
+
+#places-list li a:hover {
+  text-decoration: none;
+  color: steelblue;
+}
+
+
 #menu #credits {
   margin: 2em 0;
 }

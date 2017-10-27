@@ -91,10 +91,21 @@
     return new BMap.InfoWindow(content, opts);
   }
 
-  function addToMainList(props) {
+  function addToMainList(f) {
     // add to the list
     var li = document.createElement("li");
-    li.appendChild(document.createTextNode(props[locale].name));
+
+    // link
+    var a = document.createElement("a");
+    a.appendChild(document.createTextNode(f.properties[locale].name));
+    a.href='#'
+    a.addEventListener("click", function(e){
+      e.preventDefault();
+      focusOnPlace(f);
+    });
+
+    // add to DOM
+    li.appendChild(a);
     placesList.appendChild(li);
   }
 
@@ -122,6 +133,14 @@
 
       return new BMap.Polygon(points, polygonOptions)
     }
+  }
+
+  function focusOnPlace(f) {
+    console.log(f.center);
+    console.log(f);
+    console.log(map);
+    map.centerAndZoom(f.center, 30);
+    map.openInfoWindow(f.infoWindowText, f.center);
   }
 
   function initMap() {
@@ -159,13 +178,13 @@
         map.addOverlay(geometry)
 
         // add infobox
-        var infoWindowText = getInfoWindow(f.properties)
         geometry.addEventListener("click", function(e){
-          map.openInfoWindow(infoWindowText, e.point);
+          map.openInfoWindow(f.infoWindowText, e.point);
         });
 
         // parse list
-        addToMainList(f.properties)
+        var li = addToMainList(f)
+
       })
   }
 
@@ -180,8 +199,32 @@
 
   // load data
   loadJSON("list.json", function(response) {
-    data = JSON.parse(response);
+
+    // parse data
+    data = JSON.parse(response)
+      .map( d => {
+        var center;
+
+        if (d.geometry.type === 'Polygon') {
+          const bounds = new BMap.Bounds()
+          d.geometry.coordinates.forEach( c =>
+            bounds.extend( new BMap.Point(c[0], c[1]) )
+          )
+          center = bounds.getCenter()
+        } else if (d.geometry.type === 'Point') {
+          center = new BMap.Point(
+            d.geometry.coordinates[0],
+            d.geometry.coordinates[1]
+          )
+        }
+        const infoWindowText = getInfoWindow(d.properties)
+
+        return Object.assign({}, d, { center, infoWindowText } )
+      })
+
+    console.log(data);
     updateMap()
+
   })
 
 
