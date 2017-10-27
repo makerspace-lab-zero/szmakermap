@@ -59,6 +59,7 @@ h1 {
 #places-list li a {
   text-decoration: none;
   color: #666666;
+  display : block;
 }
 
 #places-list li a:hover {
