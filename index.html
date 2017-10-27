@@ -161,7 +161,7 @@
         // add infobox
         var infoWindowText = getInfoWindow(f.properties)
         geometry.addEventListener("click", function(e){
-          map.openInfoWindow(infoWindowText, e.currentTarget.getPosition());
+          map.openInfoWindow(infoWindowText, e.point);
         });
 
         // parse list
