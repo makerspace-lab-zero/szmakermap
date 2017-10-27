@@ -9,7 +9,9 @@ body, html, #map {
 
 h1 {
   font-size: 2rem;
-  margin-bottom: 1em;
+  font-weight: normal;
+  padding: 0;
+  margin: 0 0 2em 0;
 }
 
 .helper {
@@ -19,7 +21,9 @@ h1 {
 
 #menu {
   padding : 1em;
+  width : 256px;
 }
+
 #menu .add-new {
   padding : 1em;
   background: steelblue;
@@ -32,13 +36,19 @@ h1 {
   display: block;
 }
 
-#menu input {
+#menu input#search-places {
   margin-bottom: 2em;
   padding: .6em;
   border-radius: 0.35em;
   border: 1px solid #ccc;
-  /* font-weight: lighter; */
+  width: 90%;
   font-size: .9em;
+}
+
+#places-list {
+  list-style: none;
+  padding : 0 1em 0 0;
+  margin : 0;
 }
 
 #places-list li {
